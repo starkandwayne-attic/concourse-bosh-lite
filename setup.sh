@@ -20,6 +20,7 @@ bosh upload stemcell https://bosh.io/d/stemcells/bosh-warden-boshlite-ubuntu-tru
 
 ./fetch_manifest.sh
 
+set +e
 bosh deployment concourse.yml
 bosh -n deploy
 bosh -n delete deployment concourse -f
