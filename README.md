@@ -43,6 +43,16 @@ To bootstrap a VM on AWS running bosh-lite, and deploy Concourse inside it:
 vagrant up --provider=aws && ./setup.sh
 ```
 
+This will also download the `fly` CLI from your running Concourse into your `$HOME/bin` if it exists, else into the current folder's `bin` folder.
+
+It also saves the target name `bosh-lite`.
+
+You can now access your Concourse using:
+
+```
+fly -t bosh-lite
+```
+
 Upgrade Concourse
 -----------------
 
