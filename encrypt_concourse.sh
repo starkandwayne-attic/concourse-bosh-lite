@@ -14,15 +14,15 @@ fi
 encrypted_password=$(ruby encrypt_password.rb "${password}")
 
 cat <<EOF
-properties:
-  tsa:
-    atc:
-      username: ${username}
-      password: ${password}
-
-  atc:
-    basic_auth_username: ${username}
-    basic_auth_encrypted_password: ${encrypted_password}
-    development_mode: false
-    publicly_viewable: true
+    properties:
+      tsa:
+        atc:
+          username: ${username}
+          password: ${password}
+    
+      atc:
+        basic_auth_username: ${username}
+        basic_auth_encrypted_password: ${encrypted_password}
+        development_mode: false
+        publicly_viewable: true
 EOF
