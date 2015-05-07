@@ -25,6 +25,6 @@ bosh -n deploy
 bosh -n delete deployment concourse -f
 bosh -n deploy
 
-echo export ATC_URL=http://${IP}:8080
-
 ./add-route.sh
+
+echo View http://${IP}:8080 to download fly CLI and get started

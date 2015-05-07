@@ -1,6 +1,25 @@
 Run Concourse in bosh-lite on AWS
 =================================
 
+[Concourse](http://concourse.ci/) is a CI system composed of simple tools and ideas. It can express entire pipelines, integrating with arbitrary resources, or it can be used to execute one-off tasks, either locally or in another CI system.
+
+This project is an alternate to running Concourse via Vagrant directly.
+
+This project makes it easy to deploy Concourse into AWS. And because it internally uses [bosh-lite](http://bosh.io/) for the deployment you will be able to upgrade to each new Concourse release easily.
+
+It also means that your Concourse pipelines can target the bosh-lite and develop/test/deploy BOSH releases.
+
+Dependencies
+------------
+
+-	Vagrant
+-	Vagrant AWS plugin
+-	Ruby 2+
+-	Bash
+-	An AWS account with API credentials
+-	A keypair in AWS us-east-1
+-	A security group in AWS us-east-1 with ports 22, 8080 & 25555 open to your host machine
+
 Setup
 -----
 
@@ -22,6 +41,15 @@ To bootstrap a VM on AWS running bosh-lite, and deploy Concourse inside it:
 
 ```
 vagrant up --provider=aws && ./setup.sh
+```
+
+Destroy Concourse/bosh-lite
+---------------------------
+
+Concourse is deployed within bosh-lite which is deployed entirely within a single server on AWS via Vagrant. To destroy everything use the Vagrant tool:
+
+```
+vagrant destroy
 ```
 
 Setup Basic Authentication
