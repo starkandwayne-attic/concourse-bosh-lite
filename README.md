@@ -43,6 +43,21 @@ To bootstrap a VM on AWS running bosh-lite, and deploy Concourse inside it:
 vagrant up --provider=aws && ./setup.sh
 ```
 
+Upgrade Concourse
+-----------------
+
+To learn about new releases you can Watch the [concourse/concourse repo](https://github.com/concourse/concourse/releases) to get emails for new releases.
+
+To upgrade:
+
+```
+bosh upload release https://bosh.io/d/github.com/concourse/concourse
+bosh upload release https://bosh.io/d/github.com/cloudfoundry-incubator/garden-linux-release
+bosh upload stemcell https://bosh.io/d/stemcells/bosh-warden-boshlite-ubuntu-trusty-go_agent
+bosh deployment concourse.yml
+bosh deploy
+```
+
 Destroy Concourse/bosh-lite
 ---------------------------
 
