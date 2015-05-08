@@ -66,6 +66,7 @@ bosh upload release https://bosh.io/d/github.com/cloudfoundry-incubator/garden-l
 bosh upload stemcell https://bosh.io/d/stemcells/bosh-warden-boshlite-ubuntu-trusty-go_agent
 bosh deployment concourse.yml
 bosh deploy
+fly -t bosh-lite sync
 ```
 
 Destroy Concourse/bosh-lite
