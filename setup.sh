@@ -26,8 +26,6 @@ bosh -n deploy
 bosh -n delete deployment concourse -f
 bosh -n deploy
 
-./add-route.sh
-
 ./install_fly_cli.sh
 fly save-target bosh-lite --api http://$IP:8080
 
