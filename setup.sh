@@ -9,6 +9,7 @@ set -e
 bundle install
 
 vagrant up --provider=aws
+vagrant ssh -c 'sudo chown -R ubuntu ~/.bosh_config ~/tmp; ssh-keygen -N "" -f "/home/ubuntu/.ssh/id_rsa" '
 vagrant ssh -c 'sudo iptables -t nat -A PREROUTING -p tcp -d $(curl -s http://169.254.169.254/latest/meta-data/local-ipv4) --dport 8080 -j DNAT --to 10.244.8.2:8080'
 
 IP=$(vagrant ssh-config | grep HostName | awk '{print $2}')
