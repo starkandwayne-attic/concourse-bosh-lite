@@ -14,18 +14,19 @@ vagrant ssh -c 'sudo iptables -t nat -A PREROUTING -p tcp -d $(curl -s http://16
 
 IP=$(vagrant ssh-config | grep HostName | awk '{print $2}')
 yes admin | bosh target $IP concourse-bosh-lite
+bosh target $IP concourse-bosh-lite
 
-bosh upload release https://bosh.io/d/github.com/concourse/concourse
-bosh upload release https://bosh.io/d/github.com/cloudfoundry-incubator/garden-linux-release
-bosh upload stemcell https://bosh.io/d/stemcells/bosh-warden-boshlite-ubuntu-trusty-go_agent
+bosh -t concourse-bosh-lite upload release https://bosh.io/d/github.com/concourse/concourse
+bosh -t concourse-bosh-lite upload release https://bosh.io/d/github.com/cloudfoundry-incubator/garden-linux-release
+bosh -t concourse-bosh-lite upload stemcell https://bosh.io/d/stemcells/bosh-warden-boshlite-ubuntu-trusty-go_agent
 
 ./fetch_manifest.sh
 
-set +e
-bosh deployment concourse.yml
-bosh -n deploy
-bosh -n delete deployment concourse -f
-bosh -n deploy
+
+bosh -t concourse-bosh-lite deployment concourse.yml
+bosh -t concourse-bosh-lite -n deploy
+bosh -t concourse-bosh-lite -n delete deployment concourse -f
+bosh -t concourse-bosh-lite -n deploy
 
 ./install_fly_cli.sh
 fly save-target bosh-lite --api http://$IP:8080
