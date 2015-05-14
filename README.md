@@ -156,3 +156,5 @@ bosh deploy
 ```
 
 Type "yes" to confirm the changes.
+
+You now need to update `~/.flyrc` to include your username and password.
