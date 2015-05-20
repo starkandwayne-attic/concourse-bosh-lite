@@ -5,6 +5,7 @@ cd $DIR
 
 set -e
 
+
 # To install bosh CLI & bcrypt rubygem for password encryption
 bundle install
 
@@ -20,8 +21,18 @@ _bosh() {
 yes admin | _bosh target $IP concourse-bosh-lite
 _bosh target $IP concourse-bosh-lite
 
-_bosh -t concourse-bosh-lite upload release https://bosh.io/d/github.com/concourse/concourse
-_bosh -t concourse-bosh-lite upload release https://bosh.io/d/github.com/cloudfoundry-incubator/garden-linux-release
+if [[ "$(which jq)X" == "X" ]]; then
+  echo "WARNING: jq not installed - cannot detect matching release versions"
+  echo "WARNING: uploading latest concourse/garden-linux; which might not work together"
+  _bosh -t concourse-bosh-lite upload release https://bosh.io/d/github.com/concourse/concourse
+  _bosh -t concourse-bosh-lite upload release https://bosh.io/d/github.com/cloudfoundry-incubator/garden-linux-release
+else
+  releases=$(curl -s https://api.github.com/repos/concourse/concourse/releases/latest | jq -r ".assets[].browser_download_url")
+  IFS=$'\n'
+  for release in ${releases[@]}; do
+    _bosh -t concourse-bosh-lite upload release $release
+  done
+fi
 _bosh -t concourse-bosh-lite upload stemcell https://bosh.io/d/stemcells/bosh-warden-boshlite-ubuntu-trusty-go_agent
 
 ./fetch_manifest.sh
