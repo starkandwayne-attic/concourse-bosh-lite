@@ -12,7 +12,7 @@ It also means that your Concourse pipelines can target the bosh-lite and develop
 Dependencies
 ------------
 
--	Vagrant
+-	Vagrant 1.6.X (note: currently AWS/bosh-lite does not work with 1.7 \[[issue](https://github.com/cloudfoundry/bosh-lite/issues/235)])
 -	Vagrant AWS plugin
 -	Ruby 2+
 -	Bash
@@ -32,6 +32,12 @@ export BOSH_LITE_NAME=bosh-lite-concourse
 export BOSH_LITE_SECURITY_GROUP=bosh
 export BOSH_LITE_KEYPAIR=bosh-lite
 export BOSH_LITE_PRIVATE_KEY=~/.ssh/bosh-lite.pem
+```
+
+If you are deploying into VPC (or have a new AWS account and only have VPC) then you need to specify the subnet ID:
+
+```
+export BOSH_LITE_SUBNET_ID=subnet-abcdefg
 ```
 
 Deploy with Vagrant
