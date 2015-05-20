@@ -38,7 +38,10 @@ If you are deploying into VPC (or have a new AWS account and only have VPC) then
 
 ```
 export BOSH_LITE_SUBNET_ID=subnet-abcdefg
+export BOSH_LITE_SECURITY_GROUP=sg-15586xyz
 ```
+
+That is, the security group must be referenced by its internal ID not its name.
 
 Deploy with Vagrant
 -------------------
