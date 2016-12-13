@@ -11,7 +11,7 @@ if [[ "${password}X" == "X" ]]; then
   exit 1
 fi
 
-encrypted_password=$(ruby encrypt_password.rb "${password}")
+encrypted_password=$(bundle exec ruby encrypt_password.rb "${password}")
 
 cat <<EOF
     properties:
@@ -19,7 +19,7 @@ cat <<EOF
         atc:
           username: ${username}
           password: ${password}
-    
+
       atc:
         basic_auth_username: ${username}
         basic_auth_encrypted_password: ${encrypted_password}
